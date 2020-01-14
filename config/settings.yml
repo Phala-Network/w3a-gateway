@@ -1,0 +1,10 @@
+cors:
+  origins:
+    - "http://localhost:3000"
+    - "http://0.0.0.0:3000"
+
+hosts: []
+
+#url_options:
+#  host: 0.0.0.0:3000
+#  protocol: http
