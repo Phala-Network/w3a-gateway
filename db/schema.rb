@@ -39,14 +39,14 @@ ActiveRecord::Schema.define(version: 2019_03_29_170532) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "uid", null: false
+    t.string "email", null: false
     t.string "public_key", null: false
     t.datetime "disabled_at"
     t.datetime "activated_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["public_key"], name: "index_users_on_public_key", unique: true
-    t.index ["uid"], name: "index_users_on_uid", unique: true
   end
 
   add_foreign_key "access_requests", "users"

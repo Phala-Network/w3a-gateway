@@ -1,7 +1,7 @@
 # https://github.com/cryptape/ruby-bitcoin-secp256k1
 require "secp256k1"
 
-MSG = "handsome"
+MSG = "user@fake.dev"
 
 # 服务器预先生成密钥对 (pk,sk)
 sk = Secp256k1::PrivateKey.new

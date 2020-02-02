@@ -10,14 +10,10 @@ class User < ApplicationRecord
 
   attr_readonly :uid, :public_key
 
-  validates :uid,
+  validates :email,
             presence: true,
-            length: {
-              minimum: 4,
-              maximum: 16
-            },
             format: {
-              with: /\A[a-z0-9]+\z/
+              with: /\A[^@\s]+@[^@\s]+\z/
             },
             uniqueness: true
 

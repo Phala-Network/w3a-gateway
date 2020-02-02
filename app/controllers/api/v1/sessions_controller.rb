@@ -6,21 +6,21 @@ class API::V1::SessionsController < API::V1::ApplicationController
   skip_before_action :authenticate_user!, only: %i[new create update]
 
   def new
-    uid = params[:uid]
-    unless uid.present?
+    email = params[:email]
+    unless email.present?
       render status: :bad_request,
              json: {
                status: "error",
                error: {
                  type: "ParameterMissing",
-                 data: "uid"
+                 data: "email"
                }
              }
 
       return
     end
 
-    user = User.find_by uid: uid
+    user = User.find_by email: email
     unless user
       render status: :not_found,
              json: {
@@ -52,7 +52,7 @@ class API::V1::SessionsController < API::V1::ApplicationController
     public_key = Secp256k1::PublicKey.new(pubkey: [user.public_key].pack("H*"), raw: true)
     signature_raw = public_key.ecdsa_deserialize([signature].pack("H*"))
     _had_to_normalize, normalized_sig_raw = public_key.ecdsa_signature_normalize(signature_raw)
-    unless public_key.ecdsa_verify(uid, normalized_sig_raw)
+    unless public_key.ecdsa_verify(email, normalized_sig_raw)
       render status: :bad_request,
              json: {
                status: "error",
@@ -101,14 +101,14 @@ class API::V1::SessionsController < API::V1::ApplicationController
   end
 
   def create
-    uid = params[:uid]
-    unless uid.present?
+    email = params[:email]
+    unless email.present?
       render status: :bad_request,
              json: {
                status: "error",
                error: {
                  type: "ParameterMissing",
-                 data: "uid"
+                 data: "email"
                }
              }
 
@@ -184,7 +184,7 @@ class API::V1::SessionsController < API::V1::ApplicationController
       return
     end
 
-    if user.uid != uid
+    if user.email != email
       render status: :unauthorized,
              json: {
                status: "error",
@@ -247,14 +247,14 @@ class API::V1::SessionsController < API::V1::ApplicationController
   end
 
   def update
-    uid = params[:uid]
-    unless uid.present?
+    email = params[:email]
+    unless email.present?
       render status: :bad_request,
              json: {
                status: "error",
                error: {
                  type: "ParameterMissing",
-                 data: "uid"
+                 data: "email"
                }
              }
 
@@ -304,7 +304,7 @@ class API::V1::SessionsController < API::V1::ApplicationController
     end
 
     user = @access_token.user
-    if user.nil? || user.uid != uid
+    if user.nil? || user.email != email
       render status: :unauthorized,
              json: {
                status: "error",
