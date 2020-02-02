@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users, only: %i[create]
       resource :sessions, only: %i[new show create update destroy]
+
+      resources :sites, only: %i[index show create destroy]
     end
   end
 end

@@ -26,7 +26,7 @@ class API::V1::UsersController < API::V1::ApplicationController
                status: "error",
                error: {
                  type: "EntityInvalid",
-                 data: @user.errors.details
+                 data: @user.errors.messages
                }
              }
 
@@ -56,7 +56,7 @@ class API::V1::UsersController < API::V1::ApplicationController
                status: "error",
                error: {
                  type: "EntityInvalid",
-                 data: @user.errors.details
+                 data: @user.errors.messages
                }
              }
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_29_170532) do
+ActiveRecord::Schema.define(version: 2020_02_02_221619) do
 
   create_table "access_requests", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -38,6 +38,17 @@ ActiveRecord::Schema.define(version: 2019_03_29_170532) do
     t.index ["user_id"], name: "index_access_tokens_on_user_id"
   end
 
+  create_table "sites", force: :cascade do |t|
+    t.integer "creator_id"
+    t.string "domain", null: false
+    t.string "uid", null: false
+    t.boolean "verified", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["creator_id"], name: "index_sites_on_creator_id"
+    t.index ["uid"], name: "index_sites_on_uid", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
     t.string "public_key", null: false
@@ -51,4 +62,5 @@ ActiveRecord::Schema.define(version: 2019_03_29_170532) do
 
   add_foreign_key "access_requests", "users"
   add_foreign_key "access_tokens", "users"
+  add_foreign_key "sites", "users", column: "creator_id"
 end

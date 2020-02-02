@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  has_many :sites, foreign_key: "owner_id"
+
   has_many :access_requests, dependent: :delete_all
   has_many :access_tokens, dependent: :delete_all do
     def active
@@ -8,7 +10,7 @@ class User < ApplicationRecord
     end
   end
 
-  attr_readonly :uid, :public_key
+  attr_readonly :email, :public_key
 
   validates :email,
             presence: true,
