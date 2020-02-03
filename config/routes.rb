@@ -3,6 +3,9 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
+  get "collectors/page_view"
+  get "scooby", to: "collectors#page_view"
+
   root to: "home#index"
 
   namespace :api do

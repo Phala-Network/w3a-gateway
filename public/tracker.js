@@ -11,14 +11,14 @@
   const commands = {
     set: set,
     trackPageview: function (e) {
-      trackPageview({}, "pageview");
+      track({}, "pageview");
     },
     trackGoal: function (e, t) {
-      trackPageview({ gcode: e, gval: t }, "goal");
+      track({ gcode: e, gval: t }, "goal");
     },
     setTrackerUrl: function (e) {
-      set("trackerUrl", "http://0.0.0.0:3000");
-      return "http://0.0.0.0:3000";
+      set("trackerUrl", "http://0.0.0.0:8080");
+      return "http://0.0.0.0:8080";
     },
   };
 
@@ -38,7 +38,7 @@
 
   // convert object to query string
   function stringifyObject(obj) {
-    var keys = Object.keys(obj);
+    let keys = Object.keys(obj);
 
     return '?' +
         keys.map(function(k) {
@@ -46,7 +46,7 @@
         }).join('&');
   }
 
-  function trackPageview(e, o) {
+  function track(e, o) {
     e = e || {};
 
     if ("visibilityState" in document && "prerender" === document.visibilityState) {
@@ -74,19 +74,26 @@
 
     let c = e.path || n.pathname + n.search;
     c = c || "/";
-    if (config.spa == "hash" && "" !== window.location.hash.substr(1)) {
+    if (config.spa === "hash" && "" !== window.location.hash.substr(1)) {
       c = "/" + window.location.hash;
     }
 
     let s = e.hostname || n.protocol + "//" + n.hostname, l = e.referrer || "";
     document.referrer.indexOf(s) < 0 && (l = document.referrer);
     const d = { p: c, h: s, r: l, sid: config.siteId, tz: Intl.DateTimeFormat().resolvedOptions().timeZone };
-    if ("goal" == o)
-      d.gcode = e.gcode, d.gval = e.gval, navigator.sendBeacon(config.trackerUrl + "/collector/event" + stringifyObject(d));
-    else {
+    if ("goal" === o) {
+      d.gcode = e.gcode;
+      d.gval = e.gval;
+      navigator.sendBeacon(config.trackerUrl + "/collector/event" + stringifyObject(d));
+    } else {
       let e = document.getElementById("fathom-script");
-      e && (d.dash = e.src.replace("/tracker.js", ""), d.dash.indexOf("cdn.usefathom.com") > -1 && (d.dash = null));
-      let o = config.trackerUrl + "/pageview", n = document.createElement("img");
+      if (e !== null) {
+        d.dash = e.src.replace("/tracker.js", "");
+      }
+      if (d.dash.indexOf("0.0.0.0:8080") > -1) {
+        d.dash = null;
+      }
+      let o = config.trackerUrl + "collectors/page_view", n = document.createElement("img");
       n.setAttribute("alt", ""), n.setAttribute("aria-hidden", "true"), n.style.position = "absolute", n.src = o + stringifyObject(d), n.addEventListener("load", function () { n.parentNode.removeChild(n) }), document.body.appendChild(n)
     }
   }

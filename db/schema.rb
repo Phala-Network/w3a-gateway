@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_02_221619) do
+ActiveRecord::Schema.define(version: 2020_02_03_180951) do
 
   create_table "access_requests", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -36,6 +36,16 @@ ActiveRecord::Schema.define(version: 2020_02_02_221619) do
     t.index ["refresh_token"], name: "index_access_tokens_on_refresh_token", unique: true
     t.index ["token"], name: "index_access_tokens_on_token", unique: true
     t.index ["user_id"], name: "index_access_tokens_on_user_id"
+  end
+
+  create_table "page_views", id: :string, force: :cascade do |t|
+    t.string "site_uid", null: false
+    t.string "host", null: false
+    t.string "path", null: false
+    t.string "referrer"
+    t.string "client_uid"
+    t.boolean "analysed", default: false, null: false
+    t.datetime "created_at"
   end
 
   create_table "sites", force: :cascade do |t|
