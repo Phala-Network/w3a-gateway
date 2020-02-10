@@ -18,7 +18,8 @@ class CollectorsController < ApplicationController
       head :bad_request
     end
 
-    PageView.create! id: SecureRandom.uuid, site_uid: site_uid, host: host, path: path # TODO: referrer and more.
+    pv = PageView.new id: SecureRandom.uuid, site_uid: site_uid, host: host, path: path # TODO: referrer and more.
+    pv.send :create_or_update
 
     head :no_content
   end
