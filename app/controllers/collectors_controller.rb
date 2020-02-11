@@ -2,9 +2,9 @@
 
 class CollectorsController < ApplicationController
   def page_view
-    site_uid = params[:sid]
+    sid = params[:sid]
     # Check SID exists
-    # unless Site.exists?(uid: site_sid)
+    # unless Site.exists?(sid: sid)
     #   head :bad_request
     # end
 
@@ -18,8 +18,8 @@ class CollectorsController < ApplicationController
       head :bad_request
     end
 
-    pv = PageView.new id: SecureRandom.uuid, site_uid: site_uid, host: host, path: path # TODO: referrer and more.
-    pv.send :create_or_update
+    pv = PageView.new id: SecureRandom.uuid, sid: sid, cid: params[:cid], host: host, path: path # TODO: referrer and more.
+    pv.send :create_or_update # Hack to avoid transaction
 
     head :no_content
   end

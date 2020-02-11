@@ -3,7 +3,7 @@
 class Site < ApplicationRecord
   belongs_to :creator, class_name: "User"
 
-  validates :uid, :domain,
+  validates :sid, :domain,
             presence: true,
             uniqueness: true
 
@@ -12,6 +12,6 @@ class Site < ApplicationRecord
   private
 
     def initialize_attributes
-      self.uid ||= SecureRandom.hex(4)
+      self.sid ||= SecureRandom.hex(4)
     end
 end

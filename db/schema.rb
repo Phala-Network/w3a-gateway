@@ -39,11 +39,11 @@ ActiveRecord::Schema.define(version: 2020_02_03_180951) do
   end
 
   create_table "page_views", id: :string, force: :cascade do |t|
-    t.string "site_uid", null: false
+    t.string "sid", null: false
+    t.string "cid"
     t.string "host", null: false
     t.string "path", null: false
     t.string "referrer"
-    t.string "client_uid"
     t.boolean "analysed", default: false, null: false
     t.datetime "created_at"
   end
@@ -51,12 +51,12 @@ ActiveRecord::Schema.define(version: 2020_02_03_180951) do
   create_table "sites", force: :cascade do |t|
     t.integer "creator_id"
     t.string "domain", null: false
-    t.string "uid", null: false
+    t.string "sid", null: false
     t.boolean "verified", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["creator_id"], name: "index_sites_on_creator_id"
-    t.index ["uid"], name: "index_sites_on_uid", unique: true
+    t.index ["sid"], name: "index_sites_on_sid", unique: true
   end
 
   create_table "users", force: :cascade do |t|

@@ -60,7 +60,7 @@ class API::V1::SitesController < API::V1::ApplicationController
     def render_site(site)
       {
         id: site.id,
-        uid: site.uid,
+        sid: site.sid,
         domain: site.domain,
         verified: site.verified
       }
