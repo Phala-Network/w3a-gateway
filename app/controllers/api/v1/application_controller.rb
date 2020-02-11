@@ -50,12 +50,12 @@ module API
             begin
               return unless current_access_token
 
-              uid = request.headers["X-UID"]
-              if uid.blank?
+              email = request.headers["X-Email"]
+              if email.blank?
                 return
               end
 
-              user = User.find_by uid: uid
+              user = User.find_by email: email
               unless user
                 return
               end

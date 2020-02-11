@@ -218,7 +218,7 @@ class API::V1::SessionsController < API::V1::ApplicationController
 
     render json: {
       status: "ok",
-      json: {
+      data: {
         access_token: @access_token.token,
         expires_at: @access_token.expires_at,
         refresh_token: @access_token.refresh_token
@@ -338,7 +338,7 @@ class API::V1::SessionsController < API::V1::ApplicationController
 
     render json: {
       status: "ok",
-      json: {
+      data: {
         access_token: @access_token.token,
         expires_at: @access_token.expires_at
       }
