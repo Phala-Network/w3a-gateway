@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  has_many :sites, foreign_key: "owner_id"
+  has_many :sites, foreign_key: "creator_id"
 
   has_many :access_requests, dependent: :delete_all
   has_many :access_tokens, dependent: :delete_all do

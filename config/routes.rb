@@ -13,7 +13,22 @@ Rails.application.routes.draw do
       resources :users, only: %i[create]
       resource :sessions, only: %i[new show create update destroy]
 
-      resources :sites, only: %i[index show create destroy]
+      resources :sites, only: %i[index show create destroy] do
+        scope module: :sites do
+          resources :reports, only: [] do
+            collection do
+              get "online_users"
+              get "popular_pages"
+              get "devices"
+              get "activities"
+              get "geo"
+              get "referrers"
+              get "retention_rate"
+              get "trends"
+            end
+          end
+        end
+      end
     end
   end
 end
