@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::V1::SitesController < API::V1::ApplicationController
+class API::AdminV1::SitesController < API::AdminV1::ApplicationController
   before_action :set_site, only: %i[show update destroy]
 
   def index

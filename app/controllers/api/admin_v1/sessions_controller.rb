@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::V1::SessionsController < API::V1::ApplicationController
+class API::AdminV1::SessionsController < API::AdminV1::ApplicationController
   MAX_PENDING_REQUEST = 5
 
   skip_before_action :authenticate_user!, only: %i[new create update]

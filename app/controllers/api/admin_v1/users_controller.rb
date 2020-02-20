@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::V1::UsersController < API::V1::ApplicationController
+class API::AdminV1::UsersController < API::AdminV1::ApplicationController
   skip_before_action :authenticate_user!
 
   def create

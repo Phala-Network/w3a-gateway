@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class API::V1::Sites::ApplicationController < API::V1::ApplicationController
+class API::AdminV1::Sites::ApplicationController < API::AdminV1::ApplicationController
   private
 
     def set_site

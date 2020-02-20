@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 module API
-  module V1
+  module ApiV1
     class ApplicationController < ::ApplicationController
       before_action :authenticate_user!
 
-      rescue_from SQLite3::BusyException do |exception|
+      rescue_from SQLite3::BusyException do |_exception|
         ActiveRecord::Base.connection.execute("BEGIN TRANSACTION; END;")
 
         render status: :gateway_timeout,

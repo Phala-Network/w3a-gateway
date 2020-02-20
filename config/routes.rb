@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   root to: "home#index"
 
   namespace :api do
-    namespace :v1 do
+    namespace :admin_v1 do
       resources :users, only: %i[create]
       resource :sessions, only: %i[new show create update destroy]
 
@@ -29,6 +29,10 @@ Rails.application.routes.draw do
           end
         end
       end
+    end
+
+    namespace :client_v1 do
+      root to: "home#index"
     end
   end
 end
