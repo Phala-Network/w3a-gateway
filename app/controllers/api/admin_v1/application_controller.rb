@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module API
-  module ApiV1
+  module AdminV1
     class ApplicationController < ::ApplicationController
       before_action :authenticate_user!
 
