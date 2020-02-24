@@ -34,14 +34,14 @@ class API::AdminV1::Sites::ReportsController < API::AdminV1::Sites::ApplicationC
         },
         popular_pages: [
           {
-            path: "/",
-            pv_count: 2234,
-            week_on_week: 28
-          },
-          {
             path: "/latest",
             pv_count: 2404,
             week_on_week: 3
+          },
+          {
+            path: "/",
+            pv_count: 2234,
+            week_on_week: 28
           },
           {
             path: "/topic1",
@@ -86,7 +86,7 @@ class API::AdminV1::Sites::ReportsController < API::AdminV1::Sites::ApplicationC
       status: "ok",
       data: {
         chart: {
-          xAxis: %w[2 3 4 5 6 7 8], # x轴
+          xAxis: %w[Mon Tue Wed Tur Fri Sat Sun], # x轴
           yAxis: %w[
             0:00 1:00 2:00 3:00 4:00 5:00 6:00 7:00 8:00
             9:00 10:00 11:00 12:00 13:00 14:00 15:00 16:00
@@ -212,21 +212,24 @@ class API::AdminV1::Sites::ReportsController < API::AdminV1::Sites::ApplicationC
       status: "ok",
       data: {
         chart: {
-          xAxis: %w[Week0 Week1 Week2 Week3], # x轴
-          yAxis: ["2/8 - 2/14", "2/15 - 2/21", "2/22 - 2/28", "2/29 - 3/4"],
+          xAxis: %w[Week0 Week1 Week2 Week3 Week4], # x轴
+          yAxis: ["2/8 - 2/14", "2/15 - 2/21", "2/22 - 2/28", "2/29 - 3/4", "3/5 - 3/12"],
           summary: [100, 40, 30, 23, 60],
           data: [ # Y 轴从上到下，即一周一个数组，每个数组从 X 轴左到右，值为留存率（0-100）
             [
-              100, 75, 50, 25
+              100, 75, 50, 25, 25
             ],
             [
-              100, 75, 50, 0
+              100, 75, 50, 25, 0
             ],
             [
-              100, 50, 0, 0
+              100, 50, 45, 0, 0
             ],
             [
-              100, 0, 0, 0
+              100, 75, 0, 0, 0
+            ],
+            [
+              100, 0, 0, 0, 0
             ],
           ]
         }
