@@ -5,19 +5,6 @@ module API
     class ApplicationController < ::ApplicationController
       before_action :authenticate_user!
 
-      rescue_from SQLite3::BusyException do |_exception|
-        ActiveRecord::Base.connection.execute("BEGIN TRANSACTION; END;")
-
-        render status: :gateway_timeout,
-               json: {
-                 status: "error",
-                 error: {
-                   type: "DatabaseBusy",
-                   data: nil
-                 }
-               }
-      end
-
       rescue_from ActionController::ParameterMissing do |exception|
         render status: :bad_request,
                json: {

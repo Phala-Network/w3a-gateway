@@ -12,8 +12,11 @@
 
 ActiveRecord::Schema.define(version: 2020_02_20_201940) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "access_requests", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.string "request_token", null: false
     t.datetime "expires_at"
     t.datetime "granted_at"
@@ -24,8 +27,8 @@ ActiveRecord::Schema.define(version: 2020_02_20_201940) do
   end
 
   create_table "access_tokens", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "access_request_id"
+    t.bigint "user_id", null: false
+    t.bigint "access_request_id"
     t.string "token", null: false
     t.string "refresh_token", null: false
     t.datetime "expires_at"
@@ -56,7 +59,7 @@ ActiveRecord::Schema.define(version: 2020_02_20_201940) do
   end
 
   create_table "sites", force: :cascade do |t|
-    t.integer "creator_id"
+    t.bigint "creator_id"
     t.string "domain", null: false
     t.string "sid", null: false
     t.boolean "verified", default: false, null: false
