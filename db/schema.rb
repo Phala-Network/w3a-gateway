@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_20_201940) do
+ActiveRecord::Schema.define(version: 2020_02_20_201941) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,17 @@ ActiveRecord::Schema.define(version: 2020_02_20_201940) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["fingerprint"], name: "index_clients_on_fingerprint", unique: true
+  end
+
+  create_table "key_values", force: :cascade do |t|
+    t.string "key", null: false
+    t.integer "value_type", null: false
+    t.integer "integer_value"
+    t.datetime "datetime_value"
+    t.string "string_value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["key"], name: "index_key_values_on_key", unique: true
   end
 
   create_table "page_views", id: :string, force: :cascade do |t|
