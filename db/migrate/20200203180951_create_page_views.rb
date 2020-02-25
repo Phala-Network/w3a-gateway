@@ -6,6 +6,8 @@ class CreatePageViews < ActiveRecord::Migration[6.0]
       t.string :host, null: false
       t.string :path, null: false
       t.string :referrer
+      t.string :ip
+      t.string :ua
 
       t.boolean :analysed, null: false, default: false
 

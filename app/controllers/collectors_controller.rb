@@ -18,7 +18,12 @@ class CollectorsController < ApplicationController
       head :bad_request
     end
 
-    pv = PageView.new id: SecureRandom.uuid, sid: sid, cid: params[:cid], host: host, path: path # TODO: referrer and more.
+    pv = PageView.new id: SecureRandom.uuid,
+                      sid: sid,
+                      cid: params[:cid],
+                      host: host,
+                      path: path, ip: request.ip,
+                      ua: request.user_agent # TODO: referrer and more.
     pv.send :create_or_update # Hack to avoid transaction
 
     head :no_content

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_20_201941) do
+ActiveRecord::Schema.define(version: 2020_02_20_204637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,12 +59,24 @@ ActiveRecord::Schema.define(version: 2020_02_20_201941) do
     t.index ["key"], name: "index_key_values_on_key", unique: true
   end
 
+  create_table "online_users_reports", force: :cascade do |t|
+    t.bigint "site_id"
+    t.integer "unique_cid_count", null: false
+    t.integer "unique_ip_count", null: false
+    t.datetime "timestamp", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["site_id"], name: "index_online_users_reports_on_site_id"
+  end
+
   create_table "page_views", id: :string, force: :cascade do |t|
     t.string "sid", null: false
     t.string "cid"
     t.string "host", null: false
     t.string "path", null: false
     t.string "referrer"
+    t.string "ip"
+    t.string "ua"
     t.boolean "analysed", default: false, null: false
     t.datetime "created_at"
   end
