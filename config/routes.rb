@@ -29,6 +29,9 @@ Rails.application.routes.draw do
           end
         end
       end
+
+      get "me", to: "home#me"
+      root to: "home#index"
     end
 
     namespace :client_v1 do
