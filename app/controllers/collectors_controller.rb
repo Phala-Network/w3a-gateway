@@ -22,8 +22,10 @@ class CollectorsController < ApplicationController
                       sid: sid,
                       cid: params[:cid],
                       host: host,
-                      path: path, ip: request.ip,
-                      ua: request.user_agent # TODO: referrer and more.
+                      path: path,
+                      ip: request.ip,
+                      ua: request.user_agent,
+                      referrer: params[:r]
     pv.send :create_or_update # Hack to avoid transaction
 
     head :no_content
