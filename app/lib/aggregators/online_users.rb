@@ -23,11 +23,22 @@ module Aggregators
         return
       end
 
+      timestamp = last_pv_timestamp.beginning_of_minute
+
+      last_week = site.online_users_reports.find_by timestamp: (timestamp - 1.week)
+      yesterday = site.online_users_reports.find_by timestamp: (timestamp - 1.day)
+
       site.online_users_reports.create!(
         unique_cid_count: unique_cids.size,
         unique_ip_count: unique_ips.size,
-        timestamp: last_pv_timestamp.beginning_of_minute
+        week_on_week: last_week ? (unique_cids.size - last_week.unique_cid_count) / last_week.unique_cid_count : 0,
+        day_to_day: yesterday ? (unique_cids.size - yesterday.unique_cid_count) / yesterday.unique_cid_count : 0,
+        timestamp: last_pv_timestamp.beginning_of_minute,
+        date: last_pv_timestamp.to_date
       )
+      unless site.verified?
+        site.update! verified: true
+      end
     end
   end
 end

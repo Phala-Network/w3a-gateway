@@ -30,6 +30,7 @@ gem "rack-cors"
 gem "config"
 
 gem "bitcoin-secp256k1", require: "secp256k1"
+gem "browser"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -27,6 +27,19 @@ Rails.application.routes.draw do
               get "trends"
             end
           end
+
+          resources :real_reports, only: [] do
+            collection do
+              get "online_users"
+              get "popular_pages"
+              get "devices"
+              get "activities"
+              get "geo"
+              get "referrers"
+              get "retention_rate"
+              get "trends"
+            end
+          end
         end
       end
 

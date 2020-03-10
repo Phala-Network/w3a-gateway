@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_20_204637) do
+ActiveRecord::Schema.define(version: 2020_03_04_175819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,29 @@ ActiveRecord::Schema.define(version: 2020_02_20_204637) do
     t.index ["fingerprint"], name: "index_clients_on_fingerprint", unique: true
   end
 
+  create_table "daily_stats_reports", force: :cascade do |t|
+    t.bigint "site_id", null: false
+    t.integer "pv_count", null: false
+    t.integer "clients_count", null: false
+    t.integer "avg_duration_in_seconds", null: false
+    t.date "date", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["site_id"], name: "index_daily_stats_reports_on_site_id"
+  end
+
+  create_table "hourly_stats_reports", force: :cascade do |t|
+    t.bigint "site_id", null: false
+    t.integer "pv_count", null: false
+    t.integer "clients_count", null: false
+    t.integer "avg_duration_in_seconds", null: false
+    t.datetime "timestamp", null: false
+    t.date "date", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["site_id"], name: "index_hourly_stats_reports_on_site_id"
+  end
+
   create_table "key_values", force: :cascade do |t|
     t.string "key", null: false
     t.integer "value_type", null: false
@@ -63,7 +86,10 @@ ActiveRecord::Schema.define(version: 2020_02_20_204637) do
     t.bigint "site_id"
     t.integer "unique_cid_count", null: false
     t.integer "unique_ip_count", null: false
+    t.integer "week_on_week", default: 0
+    t.integer "day_to_day", default: 0
     t.datetime "timestamp", null: false
+    t.date "date", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["site_id"], name: "index_online_users_reports_on_site_id"
@@ -81,6 +107,14 @@ ActiveRecord::Schema.define(version: 2020_02_20_204637) do
     t.datetime "created_at"
   end
 
+  create_table "site_clients", force: :cascade do |t|
+    t.bigint "site_id", null: false
+    t.string "cid"
+    t.datetime "created_at"
+    t.index ["site_id", "cid"], name: "index_site_clients_on_site_id_and_cid", unique: true
+    t.index ["site_id"], name: "index_site_clients_on_site_id"
+  end
+
   create_table "sites", force: :cascade do |t|
     t.bigint "creator_id"
     t.string "domain", null: false
@@ -90,6 +124,17 @@ ActiveRecord::Schema.define(version: 2020_02_20_204637) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["creator_id"], name: "index_sites_on_creator_id"
     t.index ["sid"], name: "index_sites_on_sid", unique: true
+  end
+
+  create_table "total_stats_reports", force: :cascade do |t|
+    t.bigint "site_id", null: false
+    t.integer "clients_count", null: false
+    t.integer "pv_count", null: false
+    t.integer "avg_duration_in_seconds", null: false
+    t.datetime "timestamp", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["site_id"], name: "index_total_stats_reports_on_site_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -103,7 +148,38 @@ ActiveRecord::Schema.define(version: 2020_02_20_204637) do
     t.index ["public_key"], name: "index_users_on_public_key", unique: true
   end
 
+  create_table "weekly_clients", force: :cascade do |t|
+    t.bigint "site_id", null: false
+    t.string "cid"
+    t.date "date"
+    t.datetime "created_at"
+    t.index ["site_id", "cid", "date"], name: "index_weekly_clients_on_site_id_and_cid_and_date", unique: true
+    t.index ["site_id"], name: "index_weekly_clients_on_site_id"
+  end
+
+  create_table "weekly_devices", force: :cascade do |t|
+    t.bigint "site_id", null: false
+    t.string "device"
+    t.integer "count"
+    t.date "date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["site_id", "device", "date"], name: "index_weekly_devices_on_site_id_and_device_and_date", unique: true
+    t.index ["site_id"], name: "index_weekly_devices_on_site_id"
+  end
+
+  create_table "weekly_sites_reports", force: :cascade do |t|
+    t.bigint "site_id", null: false
+    t.string "path", null: false
+    t.integer "count", default: 0, null: false
+    t.date "date", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["site_id"], name: "index_weekly_sites_reports_on_site_id"
+  end
+
   add_foreign_key "access_requests", "users"
   add_foreign_key "access_tokens", "users"
   add_foreign_key "sites", "users", column: "creator_id"
+  add_foreign_key "weekly_devices", "sites"
 end
