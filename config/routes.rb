@@ -15,6 +15,8 @@ Rails.application.routes.draw do
 
       resources :sites, only: %i[index show create destroy] do
         scope module: :sites do
+          resources :contracts, only: %i[index]
+
           resources :reports, only: [] do
             collection do
               get "online_users"
