@@ -23,7 +23,7 @@ module API
             begin
               return if request.headers["X-Client-Fingerprint"].blank?
 
-              Client.find_by fingerprint: request.headers["X-Client-Fingerprint"]
+              Client.find_or_create_by fingerprint: request.headers["X-Client-Fingerprint"]
             end
         end
     end

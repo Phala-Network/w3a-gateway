@@ -26,7 +26,12 @@ class API::AdminV1::Sites::ContractsController < API::AdminV1::Sites::Applicatio
           desc: "在中台产品的研发",
           builtin: true
         }
-      ]
+      ],
+      pagination: {
+        current_page: 1,
+        total_count: 4,
+        per_page: 25
+      }
     }
   end
 end

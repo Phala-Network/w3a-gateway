@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       resources :users, only: %i[create]
       resource :sessions, only: %i[new show create update destroy]
 
-      resources :sites, only: %i[index show create destroy] do
+      resources :sites, only: %i[index show create update destroy] do
         scope module: :sites do
           resources :contracts, only: %i[index]
 
@@ -51,6 +51,15 @@ Rails.application.routes.draw do
 
     namespace :client_v1 do
       root to: "home#index"
+
+      get "me", to: "home#me"
+      get "dashboard", to: "home#dashboard"
+
+      resources :sites, only: %i[show index] do
+        scope module: :sites do
+          resources :page_views, only: %i[index]
+        end
+      end
     end
   end
 end

@@ -35,6 +35,7 @@ module Aggregators
 
       SiteClient.insert_all(unique_cids.map { |cid| { site_id: site.id, cid: cid, created_at: last_pv_timestamp } })
       WeeklyClient.insert_all(unique_cids.map { |cid| { site_id: site.id, cid: cid, date: last_pv_timestamp.to_date.beginning_of_week, created_at: Time.zone.now } })
+      Client.insert_all(unique_cids.map { |cid| { fingerprint: cid, created_at: Time.zone.now, updated_at: Time.zone.now } })
 
       devices.each do |device, count|
         stats = WeeklyDevice.find_or_initialize_by(site_id: site.id, device: device, date: last_pv_timestamp.to_date.beginning_of_week)

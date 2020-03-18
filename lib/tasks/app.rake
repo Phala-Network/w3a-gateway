@@ -30,7 +30,7 @@ namespace :app do
         end_time = start_time + 1.minute
         PageView.order(created_at: :asc).where(created_at: start_time..end_time).each do |pv|
           aggregators = grouped_aggregators[pv.sid]
-          next if aggregators&.empty?
+          next unless aggregators&.any?
 
           aggregators.each { |agg| agg.collect pv }
         end

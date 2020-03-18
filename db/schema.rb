@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_04_175819) do
+ActiveRecord::Schema.define(version: 2020_03_18_135524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -122,6 +122,9 @@ ActiveRecord::Schema.define(version: 2020_03_04_175819) do
     t.boolean "verified", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "name"
+    t.string "description"
+    t.string "phala_address"
     t.index ["creator_id"], name: "index_sites_on_creator_id"
     t.index ["sid"], name: "index_sites_on_sid", unique: true
   end

@@ -29,6 +29,8 @@ gem "rack-cors"
 
 gem "config"
 
+gem "kaminari"
+
 gem "bitcoin-secp256k1", require: "secp256k1"
 gem "browser"
 
