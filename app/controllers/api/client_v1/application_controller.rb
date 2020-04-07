@@ -3,6 +3,8 @@
 module API
   module ClientV1
     class ApplicationController < ::ApplicationController
+      before_action :authenticate_client!
+
       protected
 
         def authenticate_client!

@@ -61,6 +61,36 @@ module API
           }
         }
       end
+
+      def stats
+        render json: {
+          status: "ok",
+          data: {
+            earnings: {
+              chart: {
+                xAxis: %w[2 3 4 5 6 7 8], # x轴
+                data1: [
+                  120, 132, 101, 134, 23, 230, 210
+                ],
+                data2: [
+                  220, 182, 191, 234, 290, 330, 310
+                ]
+              }
+            },
+            data_outputs: {
+              chart: {
+                xAxis: %w[2 3 4 5 6 7 8], # x轴
+                data1: [
+                  220, 182, 191, 234, 290, 330, 310
+                ],
+                data2: [
+                  120, 132, 101, 134, 23, 230, 210
+                ]
+              }
+            },
+          }
+        }
+      end
     end
   end
 end

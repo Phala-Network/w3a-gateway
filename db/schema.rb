@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_18_135524) do
+ActiveRecord::Schema.define(version: 2020_03_18_211228) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,11 +41,49 @@ ActiveRecord::Schema.define(version: 2020_03_18_135524) do
     t.index ["user_id"], name: "index_access_tokens_on_user_id"
   end
 
+  create_table "client_contracts", force: :cascade do |t|
+    t.bigint "contract_id", null: false
+    t.bigint "client_id", null: false
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_client_contracts_on_client_id"
+    t.index ["contract_id"], name: "index_client_contracts_on_contract_id"
+  end
+
   create_table "clients", force: :cascade do |t|
     t.string "fingerprint", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["fingerprint"], name: "index_clients_on_fingerprint", unique: true
+  end
+
+  create_table "contract_groups", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "contract_subscriptions", force: :cascade do |t|
+    t.bigint "contract_id", null: false
+    t.bigint "site_id", null: false
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["contract_id", "site_id"], name: "index_contract_subscriptions_on_contract_id_and_site_id", unique: true
+    t.index ["contract_id"], name: "index_contract_subscriptions_on_contract_id"
+    t.index ["site_id"], name: "index_contract_subscriptions_on_site_id"
+  end
+
+  create_table "contracts", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "agreement"
+    t.boolean "builtin", default: false
+    t.bigint "group_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_contracts_on_group_id"
   end
 
   create_table "daily_stats_reports", force: :cascade do |t|
@@ -183,6 +221,11 @@ ActiveRecord::Schema.define(version: 2020_03_18_135524) do
 
   add_foreign_key "access_requests", "users"
   add_foreign_key "access_tokens", "users"
+  add_foreign_key "client_contracts", "clients"
+  add_foreign_key "client_contracts", "contracts"
+  add_foreign_key "contract_subscriptions", "contracts"
+  add_foreign_key "contract_subscriptions", "sites"
+  add_foreign_key "contracts", "contract_groups", column: "group_id"
   add_foreign_key "sites", "users", column: "creator_id"
   add_foreign_key "weekly_devices", "sites"
 end

@@ -3,7 +3,6 @@
 class API::AdminV1::Sites::ApplicationController < API::AdminV1::ApplicationController
   before_action :set_site
   # before_action :require_site_creator! # TODO: ENABLE IT LATER
-  skip_before_action :authenticate_user! # TODO: REMOVE IT LATER
 
   private
 

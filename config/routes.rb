@@ -15,7 +15,11 @@ Rails.application.routes.draw do
 
       resources :sites, only: %i[index show create update destroy] do
         scope module: :sites do
-          resources :contracts, only: %i[index]
+          resources :contracts, only: %i[index new create destroy] do
+            collection do
+              get "stats"
+            end
+          end
 
           resources :reports, only: [] do
             collection do
@@ -54,10 +58,20 @@ Rails.application.routes.draw do
 
       get "me", to: "home#me"
       get "dashboard", to: "home#dashboard"
+      get "stats", to: "home#stats"
 
       resources :sites, only: %i[show index] do
         scope module: :sites do
-          resources :page_views, only: %i[index]
+          resources :page_views, only: %i[index] do
+            collection do
+              delete "/", action: "batch_destroy"
+            end
+          end
+          resources :contracts, only: %i[index destroy] do
+            collection do
+              get "stats"
+            end
+          end
         end
       end
     end

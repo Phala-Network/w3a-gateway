@@ -15,6 +15,14 @@ class API::ClientV1::Sites::PageViewsController < API::ClientV1::Sites::Applicat
     }
   end
 
+  def batch_destroy
+    page_view_ids = params[:page_view_ids]
+    render json: {
+      status: "ok",
+      data: page_view_ids
+    }
+  end
+
   private
 
     def render_page_view(pv)

@@ -3,6 +3,9 @@
 class Site < ApplicationRecord
   belongs_to :creator, class_name: "User"
 
+  has_many :contract_subscriptions
+  has_many :contracts, through: :contract_subscriptions
+
   has_many :clients, class_name: "SiteClient", dependent: :delete_all
 
   has_many :online_users_reports, dependent: :delete_all
