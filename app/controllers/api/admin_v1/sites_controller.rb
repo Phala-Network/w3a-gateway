@@ -67,27 +67,27 @@ class API::AdminV1::SitesController < API::AdminV1::ApplicationController
 
   private
 
-  def set_site
-    @site = current_user.sites.find(params[:id])
-  end
+    def set_site
+      @site = current_user.sites.find(params[:id])
+    end
 
-  def site_params
-    params.require(:site).permit(:domain, :name, :description, :phala_address)
-  end
+    def site_params
+      params.require(:site).permit(:domain, :name, :description, :phala_address)
+    end
 
-  def site_params_for_update
-    params.require(:site).permit(:name, :description, :phala_address)
-  end
+    def site_params_for_update
+      params.require(:site).permit(:name, :description, :phala_address)
+    end
 
-  def render_site(site)
-    {
-      id: site.id,
-      sid: site.sid,
-      domain: site.domain,
-      verified: site.verified,
-      name: site.name,
-      description: site.description,
-      phala_address: site.phala_address
-    }
-  end
+    def render_site(site)
+      {
+        id: site.id,
+        sid: site.sid,
+        domain: site.domain,
+        verified: site.verified,
+        name: site.name,
+        description: site.description,
+        phala_address: site.phala_address
+      }
+    end
 end
