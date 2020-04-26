@@ -4,7 +4,8 @@ module API
   module ClientV1
     class SitesController < API::ClientV1::ApplicationController
       def index
-        @sites = current_client.sites
+        # @sites = current_client.sites
+        @sites = demo_user.sites
 
         render json: {
           status: "ok",
@@ -17,7 +18,8 @@ module API
       end
 
       def show
-        @site = current_client.sites.find(params[:id])
+        # @site = current_client.sites.find(params[:id])
+        @site = demo_user.sites.find(params[:id])
 
         render json: {
           status: "ok",

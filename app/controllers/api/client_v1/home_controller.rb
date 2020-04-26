@@ -27,27 +27,31 @@ module API
             total_contracts_count: 24,
             approved_contracts_count: 8,
             earnings: 2223,
-            latest_contracts: [
+            latest_used_your_data_sites: [
               {
                 id: 1,
-                name: "DesignLab",
-                desc: "在中台产品的研发过程中，会出现不同的设计规范和实现方式...",
-                builtin: true
+                name: "Phala Official",
+                desc: "Phala.Network, Blockchain Confidentiality by Trusted Computing",
+                builtin: true,
+                last_used_at: 1.days.ago
               }, {
                 id: 2,
-                name: "凤蝶",
-                desc: "在中台产品的研发过程中，会出现不同的设计规范和实现方式...",
-                builtin: true
+                name: "pLibra",
+                desc: "A privacy preserving Libra bridge",
+                builtin: true,
+                last_used_at: 1.days.ago
               }, {
                 id: 3,
-                name: "云雀",
-                desc: "在中台产品的研发过程中，会出现不同的设计规范和实现方式...",
-                builtin: true
+                name: "w3c",
+                desc: "W3c.Group’s mission is to familiarize creators with blockchain",
+                builtin: true,
+                last_used_at: 1.days.ago
               }, {
                 id: 4,
-                name: "Basement",
-                desc: "在中台产品的研发",
-                builtin: true
+                name: "Maskbook",
+                desc: "Encrypt your posts & chats on You-Know-Where. Allow only your friends to decrypt",
+                builtin: true,
+                last_used_at: 1.days.ago
               }
             ],
             latest_devices: [

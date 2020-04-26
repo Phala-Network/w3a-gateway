@@ -67,7 +67,7 @@ Rails.application.routes.draw do
               delete "/", action: "batch_destroy"
             end
           end
-          resources :contracts, only: %i[index destroy] do
+          resources :contracts, only: %i[index new create destroy] do
             collection do
               get "stats"
             end

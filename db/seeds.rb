@@ -17,21 +17,40 @@ user.sites.find_or_create_by! sid: "test",
                               domain: "fake.local",
                               verified: true
 
-g1 = ContractGroup.find_or_create_by! name: "用户行为"
-g2 = ContractGroup.find_or_create_by! name: "概况统计"
+# g1 = ContractGroup.find_or_create_by! name: "用户行为"
+# g2 = ContractGroup.find_or_create_by! name: "概况统计"
+#
+# g1.contracts.find_or_create_by! name: "实时用户数",
+#                                 description: "现在正在使用产品的用户数",
+#                                 builtin: true
+# g1.contracts.find_or_create_by! name: "产品浏览量",
+#                                 description: "访问产品的浏览行为次数",
+#                                 builtin: true
+# g1.contracts.find_or_create_by! name: "访问用户量",
+#                                 description: "访问产品的用户数量",
+#                                 builtin: true
+# g2.contracts.find_or_create_by! name: "平均用户会话时长",
+#                                 description: "现在正在使用产品的用户数",
+#                                 builtin: true
+# g2.contracts.find_or_create_by! name: "用户留存状况",
+#                                 description: "历史用户的回访次数",
+#                                 builtin: true
 
-g1.contracts.find_or_create_by! name: "实时用户数",
-                                description: "现在正在使用产品的用户数",
+g1 = ContractGroup.find_or_create_by! name: "Behavior"
+g2 = ContractGroup.find_or_create_by! name: "Stats"
+
+g1.contracts.find_or_create_by! name: "Real-time users",
+                                description: "The number of users currently using the product",
                                 builtin: true
-g1.contracts.find_or_create_by! name: "产品浏览量",
-                                description: "访问产品的浏览行为次数",
+g1.contracts.find_or_create_by! name: "Page Views",
+                                description: "The number of visiting behaviors",
                                 builtin: true
-g1.contracts.find_or_create_by! name: "访问用户量",
-                                description: "访问产品的用户数量",
+g1.contracts.find_or_create_by! name: "Visited users",
+                                description: "The number of users who visited the product",
                                 builtin: true
-g2.contracts.find_or_create_by! name: "平均用户会话时长",
-                                description: "现在正在使用产品的用户数",
+g2.contracts.find_or_create_by! name: "Session duration",
+                                description: "The average length of time users stay in the product",
                                 builtin: true
-g2.contracts.find_or_create_by! name: "用户留存状况",
-                                description: "历史用户的回访次数",
+g2.contracts.find_or_create_by! name: "User retention",
+                                description: "Acquisition date cohorts by user retention",
                                 builtin: true

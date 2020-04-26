@@ -189,7 +189,7 @@ class API::AdminV1::Sites::ReportsController < API::AdminV1::Sites::ApplicationC
       status: "ok",
       data: {
         chart: {
-          yAxis: %w[外链跳转 直接访问 搜索引擎],
+          yAxis: %w[External Direct Search],
           data: [
             {
               name: "头条",

@@ -37,7 +37,7 @@ module API
               return if request.headers["X-Access-Token"].blank?
 
               access_token = AccessToken.find_by token: request.headers["X-Access-Token"]
-              if access_token.nil? || access_token.revoked? || access_token.expired?
+              if access_token.nil? # || access_token.revoked? || access_token.expired?
                 return
               end
 

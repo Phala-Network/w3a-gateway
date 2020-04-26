@@ -28,6 +28,10 @@ module API
               Client.find_or_create_by fingerprint: request.headers["X-Client-Fingerprint"]
             end
         end
+
+        def demo_user
+          User.find_by!(email: "demo@phala.network")
+        end
     end
   end
 end

@@ -7,38 +7,53 @@ class API::ClientV1::Sites::ContractsController < API::ClientV1::Sites::Applicat
       contracts: [
         {
           id: 1,
-          name: "实时用户数",
-          group_name: "用户行为",
-          desc: "现在正在使用产品的用户数",
+          name: "Real-time users",
+          group_name: "Behavior",
+          desc: "The number of users currently using the product",
+          script: "",
           builtin: true,
+          status: "in_use",
+          credit_rate: 100,
           last_used_at: 1.days.ago
         }, {
           id: 2,
-          name:  "产品浏览量",
-          group_name: "用户行为",
-          desc: "访问产品的浏览行为次数",
+          name:  "Page views",
+          group_name: "Behavior",
+          desc: "The number of visiting behaviors",
+          script: "",
           builtin: true,
-          last_used_at: 2.days.ago
+          status: "in_use",
+          credit_rate: 100,
+          last_used_at: 1.days.ago
         }, {
           id: 3,
-          name: "访问用户量",
-          group_name: "用户行为",
-          desc: "访问产品的用户数量",
+          name: "Visited users",
+          group_name: "Behavior",
+          desc: "The number of users who visited the product",
+          script: "",
           builtin: true,
-          last_used_at: nil
+          status: "in_use",
+          credit_rate: 100,
+          last_used_at: 1.days.ago
         }, {
           id: 4,
-          name: "平均用户会话时长",
-          group_name: "概况统计",
-          desc: "现在正在使用产品的用户数",
+          name: "Session duration",
+          group_name: "Stats",
+          desc: "The average length of time users stay in the product",
+          script: "",
           builtin: true,
-          last_used_at: 10.days.ago
+          status: "in_use",
+          credit_rate: 100,
+          last_used_at: 1.days.ago
         }, {
           id: 5,
-          name: "用户留存状况",
-          group_name: "概况统计",
-          desc: "历史用户的回访次数",
+          name: "User retention",
+          group_name: "Stats",
+          desc: "Acquisition date cohorts by user retention",
+          script: "",
           builtin: true,
+          status: "in_use",
+          credit_rate: 100,
           last_used_at: nil
         }
       ],
@@ -47,6 +62,57 @@ class API::ClientV1::Sites::ContractsController < API::ClientV1::Sites::Applicat
         total_count: 4,
         per_page: 25
       }
+    }
+  end
+
+  def new
+    @contracts = Contract.includes(:group).where.not(id: @site.contract_ids).page(params[:page]).per(params[:per_page])
+    render json: {
+      status: "ok",
+      contracts: [
+        {
+          id: 1,
+          name: "Real-time users",
+          group_name: "Behavior",
+          desc: "The number of users currently using the product",
+          builtin: true,
+        }, {
+          id: 2,
+          name:  "Page views",
+          group_name: "Behavior",
+          desc: "The number of visiting behaviors",
+          builtin: true,
+        }, {
+          id: 3,
+          name: "Visited users",
+          group_name: "Behavior",
+          desc: "The number of users who visited the product",
+          builtin: true,
+        }, {
+          id: 4,
+          name: "Session duration",
+          group_name: "Stats",
+          desc: "The average length of time users stay in the product",
+          builtin: true,
+        }, {
+          id: 5,
+          name: "User retention",
+          group_name: "Stats",
+          desc: "Acquisition date cohorts by user retention",
+          builtin: true,
+        }
+      ],
+      pagination: {
+        current_page: 1,
+        total_count: 5,
+        per_page: params[:per_page] || 25
+      }
+    }
+  end
+
+  def create
+    render json: {
+      status: "ok"
     }
   end
 

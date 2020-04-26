@@ -80,7 +80,8 @@ class API::AdminV1::Sites::ContractsController < API::AdminV1::Sites::Applicatio
         name: contract.name,
         desc: contract.description,
         agreement: contract.agreement,
-        builtin: contract.builtin?
+        builtin: contract.builtin?,
+        script: contract.script
       }
 
       if with_status
