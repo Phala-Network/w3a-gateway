@@ -13,7 +13,7 @@ user = User.find_or_create_by! email: "user@fake.local",
   r.activated_at = Time.zone.now
 end
 
-user.sites.find_or_create_by! sid: "test",
+user.sites.find_or_create_by! sid: "1",
                               domain: "fake.local",
                               verified: true
 

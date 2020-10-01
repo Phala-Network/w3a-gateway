@@ -16,6 +16,7 @@ W3Analytics
 })("TRACKER_JS_URL");
 w3a('set', 'siteId', 'YOUR_SITE_ID');
 w3a('set', 'trackerUrl', "TRACKER_BASE_URL");
+w3a('set', 'uid', "PUBLIC_KEY");
 w3a('generateClientId');
 setTimeout(function () {
   w3a('trackPageview');
